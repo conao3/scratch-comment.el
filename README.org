@@ -24,7 +24,7 @@
   - [[#contributors][Contributors]]
 
 * Description
-Insert Elisp result in comment at scratch buffer.
+Insert Elisp result as comment in scratch buffer.
 
 * Install
 #+begin_src emacs-lisp

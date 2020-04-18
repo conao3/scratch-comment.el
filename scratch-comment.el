@@ -1,4 +1,4 @@
-;;; scratch-comment.el --- Insert Elisp result in comment at scratch buffer  -*- lexical-binding: t; -*-
+;;; scratch-comment.el --- Insert Elisp result as comment in scratch buffer  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020  Naoya Yamashita
 
@@ -23,7 +23,7 @@
 
 ;;; Commentary:
 
-;; Insert Elisp result in comment at scratch buffer.
+;; Insert Elisp result as comment in scratch buffer.
 
 ;; To use this package, just bind `scratch-comment-eval-sexp'
 
@@ -37,7 +37,7 @@
 ;;; Code:
 
 (defgroup scratch-comment nil
-  "Insert Elisp result in comment at scratch buffer."
+  "Insert Elisp result as comment in scratch buffer."
   :prefix "scratch-comment-"
   :group 'tools
   :link '(url-link :tag "Github" "https://github.com/conao3/scratch-comment.el"))
