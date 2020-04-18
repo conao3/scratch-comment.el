@@ -30,7 +30,11 @@ Insert Elisp result as comment in scratch buffer.
 
 * Install
 #+begin_src emacs-lisp
-  (leaf scratch-comment :ensure t)
+  (leaf scratch-comment
+    :ensure t
+    :bind ((lisp-interaction-mode-map
+            :package elisp-mode
+            ("C-j" . scratch-comment-eval-sexp))))
 #+end_src
 
 * Usage
