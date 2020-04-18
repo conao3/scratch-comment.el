@@ -26,6 +26,8 @@
 * Description
 Insert Elisp result as comment in scratch buffer.
 
+[[https://github.com/conao3/scratch-comment.el][https://raw.githubusercontent.com/conao3/files/master/blob/scratch-comment.el/scratch-comment.gif]]
+
 * Install
 #+begin_src emacs-lisp
   (leaf scratch-comment :ensure t)
