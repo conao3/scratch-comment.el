@@ -24,7 +24,7 @@
   - [[#contributors][Contributors]]
 
 * Description
-Insert Elisp result as comment in scratch buffer.
+Insert Elisp result and ~princ~ contents as comment in scratch buffer.
 
 [[https://github.com/conao3/scratch-comment.el][https://raw.githubusercontent.com/conao3/files/master/blob/scratch-comment.el/scratch-comment.gif]]
 
