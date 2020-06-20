@@ -123,6 +123,7 @@ see `eval-last-sexp'."
 
 ;;; Main
 
+;;;###autoload
 (defun scratch-comment-eval-sexp ()
   "Eval sexp before point and print result as comment.
 see `eval-print-last-sexp'."
