@@ -1,100 +1,110 @@
-#+author: conao3
-#+date: <2020-03-20 Fri>
+#+title: scratch-comment.el
+#+author: Naoya Yamashita
 
-[[https://github.com/conao3/scratch-comment.el][https://raw.githubusercontent.com/conao3/files/master/blob/headers/png/scratch-comment.el.png]]
 [[https://github.com/conao3/scratch-comment.el/blob/master/LICENSE][https://img.shields.io/github/license/conao3/scratch-comment.el.svg?style=flat-square]]
 [[https://github.com/conao3/scratch-comment.el/releases][https://img.shields.io/github/tag/conao3/scratch-comment.el.svg?style=flat-square]]
 [[https://github.com/conao3/scratch-comment.el/actions][https://github.com/conao3/scratch-comment.el/workflows/Main%20workflow/badge.svg]]
-[[https://app.codacy.com/project/conao3/scratch-comment.el/dashboard][https://img.shields.io/codacy/grade/62a36f4f04524d5e8c758440e8071c45.svg?logo=codacy&style=flat-square]]
-[[https://www.patreon.com/conao3][https://img.shields.io/badge/patreon-become%20a%20patron-orange.svg?logo=patreon&style=flat-square]]
-[[https://twitter.com/conao_3][https://img.shields.io/badge/twitter-@conao__3-blue.svg?logo=twitter&style=flat-square]]
-[[https://conao3-support.slack.com/join/shared_invite/enQtNjUzMDMxODcyMjE1LWUwMjhiNTU3Yjk3ODIwNzAxMTgwOTkxNmJiN2M4OTZkMWY0NjI4ZTg4MTVlNzcwNDY2ZjVjYmRiZmJjZDU4MDE][https://img.shields.io/badge/chat-on_slack-blue.svg?logo=slack&style=flat-square]]
 
-* Table of Contents
-- [[#description][Description]]
-- [[#install][Install]]
-- [[#usage][Usage]]
-- [[#customize][Customize]]
-- [[#information][Information]]
-  - [[#community][Community]]
-  - [[#contribution][Contribution]]
-  - [[#migration][Migration]]
-  - [[#license][License]]
-  - [[#author][Author]]
-  - [[#contributors][Contributors]]
+Insert Elisp evaluation results as comments in your scratch buffer.
 
-* Description
-Insert Elisp result and ~princ~ contents as comment in scratch buffer.
+[[https://raw.githubusercontent.com/conao3/files/master/blob/scratch-comment.el/scratch-comment.gif]]
 
-[[https://github.com/conao3/scratch-comment.el][https://raw.githubusercontent.com/conao3/files/master/blob/scratch-comment.el/scratch-comment.gif]]
+* Overview
 
-* Install
+When working in Emacs' scratch buffer, the default ~C-j~ (~eval-print-last-sexp~) inserts evaluation results directly into the buffer. This can clutter your workspace and make it harder to re-evaluate expressions.
+
+~scratch-comment.el~ provides an alternative: evaluation results are inserted as properly formatted comments, keeping your code clean and re-evaluatable.
+
+#+begin_example
+;; Before (with eval-print-last-sexp):
+(+ 1 2)
+3
+
+;; After (with scratch-comment):
+(+ 1 2)
+;;=> 3
+#+end_example
+
+* Requirements
+
+- Emacs 26.1 or later
+
+* Installation
+
+** Using package.el (MELPA)
+
 #+begin_src emacs-lisp
-  (leaf scratch-comment
-    :ensure t
-    :bind ((lisp-interaction-mode-map
-            :package elisp-mode
-            ("C-j" . scratch-comment-eval-sexp))))
+(package-install 'scratch-comment)
+#+end_src
+
+** Using use-package
+
+#+begin_src emacs-lisp
+(use-package scratch-comment
+  :ensure t
+  :bind (:map lisp-interaction-mode-map
+              ("C-j" . scratch-comment-eval-sexp)))
+#+end_src
+
+** Using leaf
+
+#+begin_src emacs-lisp
+(leaf scratch-comment
+  :ensure t
+  :bind ((lisp-interaction-mode-map
+          :package elisp-mode
+          ("C-j" . scratch-comment-eval-sexp))))
+#+end_src
+
+** Manual Installation
+
+Clone this repository and add the directory to your ~load-path~:
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path "/path/to/scratch-comment.el")
+(require 'scratch-comment)
+(define-key lisp-interaction-mode-map (kbd "C-j") 'scratch-comment-eval-sexp)
 #+end_src
 
 * Usage
 
-* Customize
+Simply press ~C-j~ after an Elisp expression in ~lisp-interaction-mode~ (the scratch buffer). The result will be inserted as a comment on the following line.
 
-* Information
-** Community
-All feedback and suggestions are welcome!
+For multi-line output (such as from ~princ~), each line is properly prefixed:
 
-You can use github issues, but you can also use [[https://conao3-support.slack.com/join/shared_invite/enQtNjUzMDMxODcyMjE1LWUwMjhiNTU3Yjk3ODIwNzAxMTgwOTkxNmJiN2M4OTZkMWY0NjI4ZTg4MTVlNzcwNDY2ZjVjYmRiZmJjZDU4MDE][Slack]]
-if you want a more casual conversation.
-
-** Contribution
-We welcome PR!
-
-*** Require tools for testing
-- cask
-  - install via brew
-    #+begin_src shell
-      brew install cask
-    #+end_src
-
-  - manual install
-    #+begin_src shell
-      cd ~/
-      hub clone cask/cask
-      export PATH="$HOME/.cask/bin:$PATH"
-    #+end_src
-
-*** Running test
-Below operation flow is recommended.
-#+begin_src shell
-  make                              # Install git-hooks in local .git
-
-  git branch [feature-branch]       # Create branch named [feature-branch]
-  git checkout [feature-branch]     # Checkout branch named [feature-branch]
-
-  # <edit loop>
-  emacs scratch-comment.el          # Edit something you want
-
-  make test                         # Test scratch-comment via multi version Emacs
-  git commit -am "brabra"           # Commit (auto-run test before commit)
-  # </edit loop>
-
-  hub fork                          # Create fork at GitHub
-  git push [user] [feature-branch]  # Push feature-branch to your fork
-  hub pull-request                  # Create pull-request
-#+end_src
-
-** Migration
-
-** License
 #+begin_example
-  General Public License Version 3 (GPLv3)
-  Copyright (c) Naoya Yamashita - https://conao3.com
-  https://github.com/conao3/scratch-comment.el/blob/master/LICENSE
+(progn (princ "hello\nworld") t)
+;;=> hello
+;;   world
+;;   t
 #+end_example
 
-** Author
-- Naoya Yamashita ([[https://github.com/conao3][conao3]])
+To restore the default behavior:
 
-** Contributors
+#+begin_src emacs-lisp
+(define-key lisp-interaction-mode-map (kbd "C-j") 'eval-print-last-sexp)
+#+end_src
+
+* Contributing
+
+Contributions are welcome. Please feel free to submit issues and pull requests on GitHub.
+
+** Running Tests
+
+This project uses [[https://github.com/cask/cask][Cask]] for dependency management.
+
+#+begin_src shell
+# Install Cask (macOS)
+brew install cask
+
+# Run tests
+make test
+#+end_src
+
+* License
+
+GPL-3.0. See [[https://github.com/conao3/scratch-comment.el/blob/master/LICENSE][LICENSE]] for details.
+
+* Author
+
+Naoya Yamashita ([[https://github.com/conao3][conao3]])
