@@ -27,7 +27,7 @@ When working in Emacs' scratch buffer, the default ~C-j~ (~eval-print-last-sexp~
 
 * Requirements
 
-- Emacs 29.1 or later
+- Emacs 26.1 or later
 
 * Installation
 
