@@ -64,8 +64,8 @@ see `elisp--eval-last-sexp-print-value'."
 	(if str (princ str output)))
       (setq end (point))
       (when (and (bufferp output)
-		 (or (not (null print-length))
-		     (not (null print-level)))
+		 (or print-length
+		     print-level)
 		 (not (string= unabbreviated
 			       (buffer-substring-no-properties beg end))))
 	(last-sexp-setup-props beg end value
